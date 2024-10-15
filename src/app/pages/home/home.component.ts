@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { TodoFormComponent } from "../../components/todo-form/todo-form.component";
 import { TodoItemComponent } from "../../components/todo-item/todo-item.component";
 import { Tasks } from '../../shared/models/tasks';
+import { TaskService } from '../../shared/services/task.service';
 
 @Component({
   selector: 'app-home',
@@ -9,13 +10,22 @@ import { Tasks } from '../../shared/models/tasks';
   imports: [TodoFormComponent, TodoItemComponent],
   templateUrl: './home.component.html'
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
 
-  data: Tasks[] = [
-    { id: 1, title: 'Tarea 1', completed: false, createdAt: new Date() },
-    { id: 2, title: 'Tarea 2', completed: true, createdAt: new Date() }
-  ];
+  data: Tasks[] = [];
+  private taskService = inject(TaskService);
 
+  constructor() {
+
+  }
+
+  ngOnInit() {
+    this.loadData()
+  }
+
+  loadData() {
+    this.data = this.taskService.getTasks();
+  }
 
   delete(task: Tasks) {
     this.data = this.data.filter(item => item.id !== task.id);
@@ -24,4 +34,6 @@ export class HomeComponent {
   complete(task: Tasks) {
     this.data = this.data.map(item => item.id === task.id ? { ...item, completed: !item.completed } : item);
   }
+
+
 }
