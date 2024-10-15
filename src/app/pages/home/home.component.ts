@@ -28,7 +28,9 @@ export class HomeComponent implements OnInit {
   }
 
   delete(task: Tasks) {
-    this.data = this.data.filter(item => item.id !== task.id);
+    //this.data = this.data.filter(item => item.id !== task.id);
+    this.taskService.delete(task);
+    this.loadData();
   }
 
   complete(task: Tasks) {
