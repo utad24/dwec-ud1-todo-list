@@ -1,0 +1,13 @@
+<div class="bg-gray-100 min-h-screen flex items-center justify-center">
+    <div class="bg-white p-8 rounded-lg shadow-md w-96">
+        <h1 class="text-2xl font-bold mb-4 text-center text-gray-800">Lista de Tareas</h1>
+        
+        <app-todo-form (reloadData)="loadData()"></app-todo-form>
+        
+        <ul id="todo-list" class="space-y-2">
+            @for (item of data; track $index) {
+                <app-todo-item [task]="item" (delete)="delete($event)" (complete)="complete($event)"></app-todo-item>
+            }
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,9 @@
+<li class="flex items-center justify-between bg-gray-100 p-2 rounded">
+    <span class="flex items-center">
+        <span [ngClass]="{'line-through': task().completed}" >{{task().title}}</span>
+    </span>
+   <div class="flex space-x-2">
+    <button (click)="complete.emit(task())" class="text-green-500 hover:text-green-700">{{task().completed ? 'Deshacer' : 'Completar'}}</button>
+    <button (click)="delete.emit(task())" class="text-red-500 hover:text-red-700">Eliminar</button>
+   </div>
+</li>
